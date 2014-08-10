@@ -23,6 +23,7 @@ public class DogGallery extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/dog/style/gallery.css");
         
         stage.setScene(scene);
         stage.show();
