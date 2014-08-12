@@ -7,11 +7,15 @@ and open the template in the editor.
     Created on : Aug 10, 2014, 9:24:47 PM
     Author     : Steve
 */
-
+#baseContainer {
+    -fx-background-color: #ebe1a9;
+    -fx-background-image: url(texture.png);
+}
 #galleryContainer {
-    -fx-background-color: #f0fff0;
+    -fx-background-color: #ebe1a9;
 }
 
 #label {
-    -fx-font-size: 15px;
+    -fx-color:#fff;
+    -fx-border-bottom: 1px solid #ddd;
 }

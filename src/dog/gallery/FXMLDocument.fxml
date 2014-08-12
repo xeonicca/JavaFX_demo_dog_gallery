@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
@@ -9,38 +11,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dog.gallery.MainController">
-   <children>
-      <BorderPane fx:id="galleryContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <Button fx:id="prevButton" mnemonicParsing="false" onAction="#handleLeftButtonAction" text="prev" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="30.0" />
-               </BorderPane.margin>
-            </Button>
-         </left>
-         <right>
-            <Button fx:id="nextButton" mnemonicParsing="false" onAction="#handleRightButtonAction" text="next" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets right="30.0" />
-               </BorderPane.margin>
-            </Button>
-         </right>
-         <top>
-            <Label fx:id="label" contentDisplay="CENTER" prefHeight="17.0" prefWidth="282.0" style="-fx-alignment: center;" text="Welcome to the Dog Gallery" textAlignment="CENTER" textOverrun="CLIP" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets top="50.0" />
-               </BorderPane.margin>
-            </Label>
-         </top>
-         <center>
-            <ImageView fx:id="imageView" fitHeight="242.0" fitWidth="317.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dog.gallery.MainController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ListView fx:id="imageList" prefHeight="400.0" prefWidth="174.0" />
+         </children></AnchorPane>
+    <AnchorPane fx:id="baseContainer" minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="390.0">
+         <children>
+            <HBox alignment="CENTER" layoutY="353.0" prefHeight="45.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="353.0">
+               <children>
+                  <Button fx:id="prevButton" minWidth="100.0" mnemonicParsing="false" onAction="#handlePrevButtonAction" text="previous">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="nextButton" minWidth="100.0" mnemonicParsing="false" onAction="#handleNextButtonAction" text="next" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <ImageView fx:id="imageView" fitHeight="271.0" fitWidth="300.0" layoutX="58.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="53.0" />
+            <Text layoutX="166.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="シバくん">
+               <font>
+                  <Font name="Hiragino Kaku Gothic Pro W6" size="21.0" />
+               </font>
                <effect>
-                  <Reflection />
+                  <DropShadow />
                </effect>
-            </ImageView>
-         </center>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </Text>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

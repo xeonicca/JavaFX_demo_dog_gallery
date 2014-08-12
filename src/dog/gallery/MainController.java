@@ -9,12 +9,18 @@ package dog.gallery;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -26,22 +32,24 @@ public class MainController implements Initializable {
     private Label label;
     @FXML
     private ImageView imageView;
+    @FXML
+    private ListView<String> imageList;
     private int currentIndex;
     private File[] fileList;
     
     @FXML
-    private void handleLeftButtonAction(ActionEvent event) {
+    private void handlePrevButtonAction(ActionEvent event) {
         if( currentIndex > 0 ){
             currentIndex--;
         }else{
-            currentIndex = fileList.length-1;
+            currentIndex = 5;
         }
         setDisplayImage();
     }
     
     @FXML
-    private void handleRightButtonAction(ActionEvent event) {
-        if( currentIndex < fileList.length-1 ){
+    private void handleNextButtonAction(ActionEvent event) {
+        if( currentIndex < 5 ){
             currentIndex++;
         }else{
             currentIndex = 0;
@@ -51,17 +59,21 @@ public class MainController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        File folder = new File("C:\\Users\\Steve\\Pictures");
-        fileList = folder.listFiles( (File pathname) -> {
-            return pathname.toURI().toString().endsWith("jpg");
-        }); 
         currentIndex = 0;
+        ObservableList<String> items =FXCollections.observableArrayList (
+            "dog1.jpg", "dog2.jpg", "dog3.jpg", "dog4.jpg","dog5.jpg","dog6.jpg");
+        imageList.setItems(items);
+        imageList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            Image image = new Image(getClass().getResourceAsStream("/dog/images/"+new_val));
+            imageView.setImage( image );
+        });
         setDisplayImage();
     }    
     
     private void setDisplayImage(){
-        //final Image image2 = new Image(MainController.class.getResourceAsStream(fileList[currentIndex].getAbsolutePath()));
-        Image image = new Image(fileList[currentIndex].toURI().toString());
+        String fileName = "dog"+(currentIndex+1)+".jpg";
+        Image image = new Image(getClass().getResourceAsStream("/dog/images/"+fileName));
         imageView.setImage( image );
+        imageList.getSelectionModel().select(currentIndex);
     }
 }
