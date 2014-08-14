@@ -6,10 +6,8 @@
 
 package dog.gallery;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -35,7 +32,7 @@ public class MainController implements Initializable {
     @FXML
     private ListView<String> imageList;
     private int currentIndex;
-    private File[] fileList;
+    private final String[] fileList = {"dog1.jpg", "dog2.jpg", "dog3.jpg", "dog4.jpg","dog5.jpg","dog6.jpg"};
     
     @FXML
     private void handlePrevButtonAction(ActionEvent event) {
@@ -44,7 +41,7 @@ public class MainController implements Initializable {
         }else{
             currentIndex = 5;
         }
-        setDisplayImage();
+        setDisplayImage(fileList[currentIndex]);
     }
     
     @FXML
@@ -54,24 +51,24 @@ public class MainController implements Initializable {
         }else{
             currentIndex = 0;
         }
-        setDisplayImage();
+        setDisplayImage(fileList[currentIndex]);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentIndex = 0;
-        ObservableList<String> items =FXCollections.observableArrayList (
-            "dog1.jpg", "dog2.jpg", "dog3.jpg", "dog4.jpg","dog5.jpg","dog6.jpg");
+        ObservableList<String> items =FXCollections.observableArrayList (fileList);
         imageList.setItems(items);
-        imageList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            Image image = new Image(getClass().getResourceAsStream("/dog/images/"+new_val));
-            imageView.setImage( image );
+        imageList.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+                    currentIndex = imageList.getSelectionModel().getSelectedIndex();
+            setDisplayImage(new_val);
         });
-        setDisplayImage();
+        
+        setDisplayImage(fileList[currentIndex]);
     }    
     
-    private void setDisplayImage(){
-        String fileName = "dog"+(currentIndex+1)+".jpg";
+    private void setDisplayImage(String fileName ){
         Image image = new Image(getClass().getResourceAsStream("/dog/images/"+fileName));
         imageView.setImage( image );
         imageList.getSelectionModel().select(currentIndex);
